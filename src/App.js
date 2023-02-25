@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FormControl, MenuItem, Select } from "@mui/material";
 import "./App.css";
+import { InfoBox } from './components'
 
 
 
@@ -45,9 +46,14 @@ useEffect(() => {
         </Select>
       </FormControl>
      </div>
-      {/* Header */}
-      {/*Title */}
-
+<div className="app__stats">
+  <InfoBox title='Coronavirus Cases' total={3000} cases={4000}/>
+  <InfoBox title='Recovered' total={3000} cases={4000}/>
+  <InfoBox title='Deaths' total={3000} cases={4000}/>
+{/* Info Boxes title=coronavirus cases */}
+{/* Info Boxes title=coronavirus recoveries */}
+{/* Info Boxes title=coronavirus deaths */}
+</div>
       {/* Info Boxes */}
       {/* Info Boxes */}
       {/* Info Boxes */}
