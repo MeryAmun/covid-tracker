@@ -4,6 +4,11 @@
 body{
   background:  #f5f6fa;
 }
+.app{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 .app__header{
   display: flex;
   justify-content: space-between;
@@ -13,5 +18,16 @@ body{
 .app__stats{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center ;
+  cursor: pointer;
+}
+
+.app__left{
+  flex:0.9;
+}
+
+@media (max-width: 990px){
+  .app{
+    flex-direction: column;
+  }
 }
