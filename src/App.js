@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import "./App.css";
-import { InfoBox, Maps, Table } from "./components";
+import { InfoBox, LineGraph, Maps, Table } from "./components";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { sortData } from "./utils";
@@ -10,28 +10,30 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
-  const [tableData, setTableData] = useState([])
-  const { todayCases,todayRecovered,todayDeaths, cases,recovered,deaths} = countryInfo;
+  const [tableData, setTableData] = useState([]);
+  const { todayCases, todayRecovered, todayDeaths, cases, recovered, deaths } =
+    countryInfo;
 
   const onCountryChange = async (e) => {
     const countryCode = e.target.value;
     const url =
-     countryCode === 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+      countryCode === "worldwide"
+        ? "https://disease.sh/v3/covid-19/all"
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
     await fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      setCountry(countryCode);
-      setCountryInfo(data)
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCountry(countryCode);
+        setCountryInfo(data);
+      });
   };
-console.log(countryInfo)
+  console.log(countryInfo);
   useEffect(() => {
-  
-     fetch("https://disease.sh/v3/covid-19/all")
-        .then((response) => response.json())
-        .then((data) => {
-         setCountryInfo(data);
-        }); 
+    fetch("https://disease.sh/v3/covid-19/all")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
   }, []);
   useEffect(() => {
     const getApiData = async () => {
@@ -42,8 +44,8 @@ console.log(countryInfo)
             name: country.country,
             value: country.countryInfo.iso2,
           }));
-          const sortedData = sortData(data)
-          setTableData(sortedData)
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -80,10 +82,11 @@ console.log(countryInfo)
       <Card className="app__right">
         <CardContent>
           <h3>Live Cases By Country</h3>
-           {/* Table */}
-           <Table countries={tableData}/>
+          {/* Table */}
+          <Table countries={tableData} />
           <h3>Worldwide New Cases</h3>
-                  {/* Graph*/}
+          {/* Graph*/}
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
