@@ -25,7 +25,6 @@ const options = {
       },
       title: {
         display: true,
-        text: 'Worldwide New Cases',
       },
     },
     elements: {
@@ -69,7 +68,7 @@ const options = {
     ],
   },
 };
-const LineGraph = ({caseType='cases'}) => {
+const LineGraph = ({casesType}) => {
   const [data, setData] = useState({});
   ChartJS.register(
     CategoryScale,
@@ -83,27 +82,30 @@ const LineGraph = ({caseType='cases'}) => {
 
 
   useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
+    const fetchData = async () => { 
+      await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
       .then((response) => response.json())
       .then((data) => {
-        const chartData = buildChartData(data,caseType);
+        const chartData = buildChartData(data,casesType);
         setData(chartData);
       });
-  }, []);
+    }
+    fetchData()
+  }, [casesType]);
   return (
     <div className="lineGraph">
       {data?.length > 0 && (
         <Line
-          options={options}
           data={{
             datasets: [
               {
                 backgroundColor: "rgba(204,16,52,)",
-                borderColor: "#cc1034",
+                borderColor: "#CC1034",
                 data: data,
               },
             ],
           }}
+          options={options}
         />
       )}
     </div>
