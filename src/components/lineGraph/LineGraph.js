@@ -45,7 +45,7 @@ const options = {
     },
   },
   scales: {
-    xAxis: [
+    xAxes: [
       {
         type: "time",
         time: {
@@ -54,7 +54,7 @@ const options = {
         },
       },
     ],
-    yAxis: [
+    yAxes: [
       {
         gridLines: {
           display: false,

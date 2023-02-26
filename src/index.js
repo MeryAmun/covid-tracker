@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Chart, registerables } from "chart.js"
+import { Chart, registerables } from "chart.js";
+import 'leaflet/dist/leaflet.css'
 
 Chart.register(...registerables);
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
