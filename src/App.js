@@ -66,7 +66,8 @@ function App() {
           <h1>COVID-19 TRACKER</h1>
           <FormControl className="app__dropdown">
             <Select
-              variant="outlined"
+             sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+             
               value={country}
               onChange={onCountryChange}
             >

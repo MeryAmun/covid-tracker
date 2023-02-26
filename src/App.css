@@ -35,7 +35,20 @@ font-size: 2rem;
 .app__worldTitle{
 margin-top: 20px;
 }
-
+.MuiOutlinedInput-notchedOutline
+{
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+.MuiOutlinedInput-colorSecondary{
+  color: #f5f6fa;
+}
+.Mui-focused{
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
 .app__right{
   display: flex;
   flex-direction: column;
