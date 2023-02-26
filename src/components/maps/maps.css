@@ -44,3 +44,10 @@ margin-top: 5px;
 /* color:#7dd71d; */
 /* color:#fb4443; */
 }
+
+@media (max-width: 990px){
+
+    .map{
+      width:100%;
+  }
+  }

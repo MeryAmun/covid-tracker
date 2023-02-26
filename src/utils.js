@@ -52,7 +52,7 @@ for(let date in data.cases){
     return chartData
 }
 
-export const showDataOnMap = (data, casesType="cases") => 
+export const showDataOnMap = (data, casesType="recovered") => 
    data.map((country, index) => (
 <Circle
 key={index}
