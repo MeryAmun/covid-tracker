@@ -68,7 +68,7 @@ const options = {
     ],
   },
 };
-const LineGraph = ({casesType}) => {
+const LineGraph = ({casesType,...props}) => {
   const [data, setData] = useState({});
   ChartJS.register(
     CategoryScale,
@@ -93,7 +93,8 @@ const LineGraph = ({casesType}) => {
     fetchData()
   }, [casesType]);
   return (
-    <div className="lineGraph">
+    // <div className={props.className}>
+    <div className='lineGraph'>
       {data?.length > 0 && (
         <Line
           data={{

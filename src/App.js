@@ -11,12 +11,37 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796])
+  const [mapCenter, setMapCenter] = useState({lat:34.80746, lng:-40.4796})
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([])
   const [casesType, setCasesType] = useState("cases")
   const { todayCases, todayRecovered, todayDeaths, cases, recovered, deaths } =
     countryInfo;
+
+  useEffect(() => {
+    fetch("https://disease.sh/v3/covid-19/all")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
+  useEffect(() => {
+    const getApiData = async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries")
+        .then((response) => response.json())
+        .then((data) => {
+          const countries = data.map((country) => ({
+            name: country.country,
+            value: country.countryInfo.iso2,
+          }));
+          const sortedData = sortData(data);
+          setCountries(countries);
+          setMapCountries(data)
+          setTableData(sortedData);
+        });
+    };
+    getApiData();
+  }, []);
 
   const onCountryChange = async (e) => {
     const countryCode = e.target.value;
@@ -33,32 +58,6 @@ function App() {
         setMapZoom(5)
       });
   };
-
-
-  useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/all")
-      .then((response) => response.json())
-      .then((data) => {
-        setCountryInfo(data);
-      });
-  }, []);
-  useEffect(() => {
-    const getApiData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
-        .then((response) => response.json())
-        .then((data) => {
-          setMapCountries(data)
-          const countries = data.map((country) => ({
-            name: country.country,
-            value: country.countryInfo.iso2,
-          }));
-          const sortedData = sortData(data);
-          setTableData(sortedData);
-          setCountries(countries);
-        });
-    };
-    getApiData();
-  }, []);
 
   return (
     <div className="app">
@@ -81,13 +80,22 @@ function App() {
           </FormControl>
         </div>
         <div className="app__stats">
-          <InfoBox title="Coronavirus Cases" total={prettyPrintStat(cases)} cases={prettyPrintStat(todayCases)}
-          onClick={() => setCasesType("cases")} />
-          <InfoBox title="Recovered" total={prettyPrintStat(recovered)} cases={prettyPrintStat(todayRecovered)} 
+          <InfoBox 
+           active={casesType === 'cases'}
+          title="Coronavirus Cases" total={prettyPrintStat(cases)} cases={prettyPrintStat(todayCases)}
+          onClick={() => setCasesType("cases")}
+          isRed />
+          <InfoBox 
+           active={casesType === 'recovered'}
+          title="Recovered" total={prettyPrintStat(recovered)} cases={prettyPrintStat(todayRecovered)} 
            onClick={() => setCasesType("recovered")}
           />
-          <InfoBox title="Deaths" total={prettyPrintStat(deaths)} cases={prettyPrintStat(todayDeaths)} 
+          <InfoBox 
+          active={casesType === 'deaths'}
+          title="Deaths" 
+          total={prettyPrintStat(deaths)} cases={prettyPrintStat(todayDeaths)} 
            onClick={() => setCasesType("deaths")}
+           isRed
           />
         </div>
         <Maps center={mapCenter} zoom={mapZoom} countries={mapCountries} casesType={casesType}/>
@@ -99,7 +107,7 @@ function App() {
           <Table countries={tableData} />
           <h3 className="app__worldTitle">Worldwide New {casesType}</h3>
           {/* Graph*/}
-          <LineGraph casesType={casesType}/>
+          <LineGraph casesType={casesType} className='app__graph'/>
         </CardContent>
       </Card>
     </div>

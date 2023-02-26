@@ -1,6 +1,6 @@
 import React from 'react';
 import './maps.css'
-import { MapContainer , Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer , TileLayer } from 'react-leaflet';
 import { showDataOnMap } from '../../utils';
 
 

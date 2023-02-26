@@ -11,6 +11,15 @@ font-weight: 600;
 font-size: 1.75rem;
 margin-bottom: 0.5rem;
 }
+.infoBox--selected{
+    border-top: 10px solid greenyellow;
+}
+.infoBox--red{
+    border-color: red;
+}
+.infoBox--green{
+    color: lightgreen;
+}
 .infoBox__total{
 color: #6c757d;
 font-weight: 700 !important;
