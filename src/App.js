@@ -24,7 +24,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setCountryInfo(data);
-        setLoading(false)
+      
       });
   }, []);
   useEffect(() => {
