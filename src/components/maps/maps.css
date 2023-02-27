@@ -45,6 +45,16 @@ margin-top: 5px;
 /* color:#fb4443; */
 }
 
+.map__popupDeath{
+color:#fb4443;
+}
+.map__popupConfirmed{
+color:#CC1034;
+}
+.map__popupRecovered{
+color:#7dd71d;
+}
+
 @media (max-width: 990px){
 
     .map{

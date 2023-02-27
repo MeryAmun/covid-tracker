@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import "./App.css";
-import { InfoBox, LineGraph, Maps, Table } from "./components";
+import { InfoBox, LineGraph, Loader, Maps, Table } from "./components";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { prettyPrintStat, sortData } from "./utils";
@@ -14,7 +14,8 @@ function App() {
   const [mapCenter, setMapCenter] = useState({lat:34.80746, lng:-40.4796})
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([])
-  const [casesType, setCasesType] = useState("cases")
+  const [casesType, setCasesType] = useState("cases");
+  const [loading, setLoading] = useState(true)
   const { todayCases, todayRecovered, todayDeaths, cases, recovered, deaths } =
     countryInfo;
 
@@ -23,6 +24,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setCountryInfo(data);
+        setLoading(false)
       });
   }, []);
   useEffect(() => {
@@ -38,6 +40,7 @@ function App() {
           setCountries(countries);
           setMapCountries(data)
           setTableData(sortedData);
+          setLoading(false)
         });
     };
     getApiData();
@@ -59,6 +62,9 @@ function App() {
       });
   };
 
+if(loading){
+ return ( <Loader/>)
+}
   return (
     <div className="app">
       <div className="app-_left">

@@ -88,10 +88,13 @@ const LineGraph = ({casesType,...props}) => {
       .then((data) => {
         const chartData = buildChartData(data,casesType);
         setData(chartData);
+      
       });
     }
     fetchData()
   }, [casesType]);
+
+
   return (
     // <div className={props.className}>
     <div className='lineGraph'>
