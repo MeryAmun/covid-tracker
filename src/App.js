@@ -109,12 +109,14 @@ if(loading){
       </div>
       <Card className="app__right">
         <CardContent>
+          <div className="app__information">
           <h3>Live Cases By Country</h3>
           {/* Table */}
           <Table countries={tableData} />
           <h3 className="app__worldTitle">Worldwide New {casesType}</h3>
           {/* Graph*/}
           <LineGraph casesType={casesType} className='app__graph'/>
+          </div>
         </CardContent>
       </Card>
     </div>
